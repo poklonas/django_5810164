@@ -1,0 +1,9 @@
+<body style="background-color:SandyBrown">
+<a href="{% url 'accounting:index' %}">Back to main manu</a>
+<h1>Add new User</h1>
+<form action="{%url 'accounting:add_user_func'%}" method="post">
+{% csrf_token %}
+	User_name   : <input type="text" name="user_name" size="50" required></input>
+	<input type="submit" value="Add">
+</form>
+</body>

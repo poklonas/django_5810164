@@ -1,0 +1,15 @@
+<head>
+
+</head>
+
+<body style="background-color:SandyBrown">
+<a href="{% url 'accounting:index' %}">Back to main manu</a>
+<h1> HI {{user.user_name}} </h1>
+<a href="{% url 'accounting:book_manage' pk=user.id %}"><h2>ADD NEW PASS_BOOK</h2></a>
+
+{% if user.pass_book_set.all %}
+	{% for book in user.pass_book_set.all %}
+		<a href="{% url 'accounting:book_detail' pk=book.id%}"<h3>{{book.book_name}}</h3>
+	{% endfor %}
+{% endif %}
+</body>

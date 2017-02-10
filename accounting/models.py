@@ -17,7 +17,7 @@ class User(models.Model):
 class Pass_book(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     book_name = models.CharField(max_length=60)
-    balance = models.IntegerField(default=0)
+    balance = models.FloatField(default=0)
     founded = models.DateTimeField('data founded')
 
     def __str__(self):
@@ -68,7 +68,7 @@ class Program(models.Model):
     year_published = models.ForeignKey(Year, on_delete=models.CASCADE)
     head_program = models.CharField(max_length=70)
     detail = models.CharField(max_length=500)
-    value = models.IntegerField(default=0)
+    value = models.FloatField(default=0)
 
     def __str__(self):
         return self.head_programe
