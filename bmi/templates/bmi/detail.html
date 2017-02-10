@@ -1,0 +1,37 @@
+<head>
+	<style>
+		table{
+			width:50%;
+			border: 1px solid black;
+			border-collapse: collapse;
+		}
+		tr:nth-child(odd){
+			background-color: MintCream;
+		}
+		tr:nth-child(even){
+			background-color: MistyRose;
+		}
+	</style>
+</head>
+
+<body style="background-color:SandyBrown">
+	<a href="{% url 'bmi:index' %}">Back to main manu</a><br>
+	<a href="{% url 'bmi:choice_manage' pk=question.id%}">Choice manage</a>
+<center>
+<h1>{{ question.question_text }}</h1>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<form action="{% url 'bmi:vote' question.id %}" method="post">
+{% csrf_token %}
+	<table>
+{% for choice in question.choice_set.all %}
+	<tr>
+		<td><input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" /></td>
+    	<td><label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label></td>
+	</tr>
+{% endfor %}
+	</table>
+	<br>
+	<input type="submit" value="Vote" /><br>
+</form>
+<center>
+</body>

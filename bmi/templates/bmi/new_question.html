@@ -1,0 +1,9 @@
+<body style="background-color:SandyBrown">
+<a href="{% url 'bmi:index' %}">Back to main manu</a>
+<h1>Add new Question and new choice for this Question</h1>
+<form action="{%url 'bmi:add_question'%}" method="post">
+{% csrf_token %}
+	Question   : <input type="text" name="question_text" size="50" required></input>
+	<input type="submit" value="Add">
+</form>
+</body>
