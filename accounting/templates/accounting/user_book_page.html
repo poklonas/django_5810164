@@ -29,6 +29,7 @@
 <a href="{% url 'accounting:index' %}">Back to main manu</a>
 <h1> HI {{user.user_name}} </h1>
 <a href="{% url 'accounting:book_manage' pk=user.id %}"><h2>ADD NEW PASS_BOOK</h2></a>
+<a href="{% url 'accounting:type_manage' pk=user.id %}"><h2>Go to Type_manage</h2></a>
 
 {% if user.pass_book_set.all %}
     <table>

@@ -25,13 +25,30 @@ class BookDetail(generic.DetailView):
     model = Pass_book
     template_name = 'accounting/book_detail.html'
 
+
 class AddIncome(generic.DetailView):
     model = Pass_book
     template_name = 'accounting/income_page.html'
 
+
 class AddExpenses(generic.DetailView):
     model = Pass_book
     template_name = 'accounting/expenses_page.html'
+
+
+class TypeManage(generic.DetailView):
+    model = User
+    template_name = 'accounting/type_manage.html'
+
+
+class PageAddType(generic.DetailView):
+    model = User
+    template_name = 'accounting/add_type.html'
+
+
+class TypeDetail(generic.DetailView):
+    model = Type_programe
+    template_name = 'accounting/type_detail.html'
 
 
 def add_user_page(request): # go to add user page
@@ -54,16 +71,23 @@ def func_add_income(request, book_id):
     program_detail_in = request.POST.get('detail')
     program_value_in = request.POST.get('value')
     #this is assume
-    program_type_in = Type_programe.objects.get(pk=1)
+    program_type_in = request.POST.get('type_text')
     program_day_in = Day.objects.get(pk=1)
     program_month_in = Month.objects.get(pk=1)
     program_year_in = Year.objects.get(pk=1)
     # end assume
     book = Pass_book.objects.get(pk=book_id)
+    try:
+        programe_instant = Type_programe.objects.get(type_name=program_type_in)
+    except:
+         user = User.objects.get(pk=book.user.id)
+         user.type_programe_set.create(type_name=program_type_in,\
+                                       type_for="income")
+         programe_instant = Type_programe.objects.get(type_name=program_type_in)
     book.program_set.create(head_program=program_name_in,\
                              detail=program_detail_in,\
                              value=program_value_in,\
-                             type_programe=program_type_in,\
+                             type_programe=programe_instant,\
                              day_published=program_day_in,\
                              month_published=program_month_in,\
                              year_published=program_year_in,\
@@ -94,3 +118,13 @@ def func_add_expenses(request, book_id):
     book.balance -= float(program_value_in)
     book.save()
     return HttpResponseRedirect(reverse('accounting:book_detail', args=(book_id)))
+
+def func_add_type(request, user_id):
+    user = User.objects.get(pk=user_id)
+    type_name_in = request.POST.get('type_name')
+    type_detail_in = request.POST.get('detail')
+    type_for_in = request.POST.get('type_for')
+    user.type_programe_set.create(type_name=type_name_in,\
+                                  type_detail=type_detail_in,\
+                                  type_for=type_for_in)
+    return HttpResponseRedirect(reverse('accounting:type_manage', args=(user_id)))

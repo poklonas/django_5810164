@@ -31,6 +31,7 @@ class Type_programe(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     type_name = models.CharField(max_length=20)
     type_detail = models.CharField(max_length=500)
+    type_for = models.CharField(max_length=20, default="income")
 
     def __str__(self):
         return self.type_name

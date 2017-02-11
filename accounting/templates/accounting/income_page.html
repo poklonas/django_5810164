@@ -6,6 +6,14 @@
 	Program name   : <input type="text" name="program_name" size="50" required></input><br>
     Detail : <br><textarea name="detail" rows="10" cols="50"></textarea><br>
     Value : <input type="number" name="value" min="0" required></input><br>
+    type is :<input list="income" name="type_text"><br>
+	<datalist id="income">
+        {% for type in pass_book.user.type_programe_set.all %}
+		    {% if type.type_for == "income" %}
+				<option value={{type.type_name}}>
+			{% endif %}
+		{% endfor %}
+	</datalist>
 	<input type="submit" value="Add">
 </form>
 </body>

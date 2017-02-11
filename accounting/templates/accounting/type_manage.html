@@ -1,0 +1,45 @@
+<head>
+	<style>
+		th, th.Type{
+			border: 2px solid black;
+			background-color: YellowGreen;
+			border-collapse: collapse
+		}
+		th.Type{
+			width: 90%;
+		}
+		table{
+			width:90%;
+			border: 2px solid black;
+			border-collapse: collapse;
+		}
+		td{
+			border: 2px solid black;
+		}
+		tr:nth-child(odd){
+			background-color: MintCream;
+		}
+		tr:nth-child(even){
+			background-color: MistyRose;
+		}
+	</style>
+</head>
+
+<body style="background-color:SandyBrown">
+<a href="{% url 'accounting:user_book' pk=user.id %}">Back to User book</a><br>
+<a href="{% url 'accounting:page_add_type' pk=user.id %}">Make new type</a>
+
+{% if user.type_programe_set.all %}
+    <table>
+    	<tr>
+			<th class="Type">Type Name</th>
+			<th>for</th>
+		</tr>
+	{% for type in user.type_programe_set.all %}
+        <tr>
+            <td><a href="{% url 'accounting:type_detail' pk=type.id %}">{{type.type_name}}</a></td>
+            <td style="text-align:center">{{type.type_for}}</td>
+        </tr>
+	{% endfor %}
+{% endif %}
+</body>
