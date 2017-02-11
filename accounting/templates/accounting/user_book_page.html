@@ -1,5 +1,28 @@
 <head>
-
+	<style>
+		th, th.book{
+			border: 2px solid black;
+			background-color: YellowGreen;
+			border-collapse: collapse
+		}
+		th.book{
+			width: 75%;
+		}
+		table{
+			width:90%;
+			border: 2px solid black;
+			border-collapse: collapse;
+		}
+		td{
+			border: 2px solid black;
+		}
+		tr:nth-child(odd){
+			background-color: MintCream;
+		}
+		tr:nth-child(even){
+			background-color: MistyRose;
+		}
+	</style>
 </head>
 
 <body style="background-color:SandyBrown">
@@ -8,8 +31,16 @@
 <a href="{% url 'accounting:book_manage' pk=user.id %}"><h2>ADD NEW PASS_BOOK</h2></a>
 
 {% if user.pass_book_set.all %}
+    <table>
+    	<tr>
+			<th class="book">Book Name</th>
+			<th>Balance</th>
+		</tr>
 	{% for book in user.pass_book_set.all %}
-		<a href="{% url 'accounting:book_detail' pk=book.id%}"<h3>{{book.book_name}}</h3>
+        <tr>
+		    <td><a href="{% url 'accounting:book_detail' pk=book.id%}">{{book.book_name}}</a></td>
+            <td style="text-align:center">{{book.balance}}</td>
+        </tr>
 	{% endfor %}
 {% endif %}
 </body>

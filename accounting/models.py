@@ -38,10 +38,10 @@ class Type_programe(models.Model):
 
 class Day(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    day = models.CharField(max_length=10)
+    day = models.IntegerField()
 
     def __str__(self):
-        return self.day
+        return str(self.day)
 
 
 class Month(models.Model):
@@ -57,7 +57,7 @@ class Year(models.Model):
     year = models.IntegerField(default=2017) # change later
 
     def __str__(self):
-        return self.year
+        return str(self.year)
 
 
 class Program(models.Model):
@@ -71,5 +71,5 @@ class Program(models.Model):
     value = models.FloatField(default=0)
 
     def __str__(self):
-        return self.head_programe
+        return self.head_program
 

@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
-from .models import User, Pass_book
+from .models import User, Pass_book, Program,Type_programe, Day, Month, Year
 
 class IndexView(generic.ListView): #for show home page that show all user
     template_name = 'accounting/index.html'
@@ -25,6 +25,14 @@ class BookDetail(generic.DetailView):
     model = Pass_book
     template_name = 'accounting/book_detail.html'
 
+class AddIncome(generic.DetailView):
+    model = Pass_book
+    template_name = 'accounting/income_page.html'
+
+class AddExpenses(generic.DetailView):
+    model = Pass_book
+    template_name = 'accounting/expenses_page.html'
+
 
 def add_user_page(request): # go to add user page
 	return render(request, 'accounting/add_user_page.html')
@@ -41,6 +49,48 @@ def func_add_book(request, user_id):
     user.pass_book_set.create(book_name=pass_book_name, founded=timezone.now())
     return HttpResponseRedirect(reverse('accounting:user_book', args=(user_id)))
 
-    
+def func_add_income(request, book_id):
+    program_name_in = request.POST.get('program_name')
+    program_detail_in = request.POST.get('detail')
+    program_value_in = request.POST.get('value')
+    #this is assume
+    program_type_in = Type_programe.objects.get(pk=1)
+    program_day_in = Day.objects.get(pk=1)
+    program_month_in = Month.objects.get(pk=1)
+    program_year_in = Year.objects.get(pk=1)
+    # end assume
+    book = Pass_book.objects.get(pk=book_id)
+    book.program_set.create(head_program=program_name_in,\
+                             detail=program_detail_in,\
+                             value=program_value_in,\
+                             type_programe=program_type_in,\
+                             day_published=program_day_in,\
+                             month_published=program_month_in,\
+                             year_published=program_year_in,\
+                             )
+    book.balance += float(program_value_in)
+    book.save()
+    return HttpResponseRedirect(reverse('accounting:book_detail', args=(book_id)))
 
-
+def func_add_expenses(request, book_id):
+    program_name_in = request.POST.get('program_name')
+    program_detail_in = request.POST.get('detail')
+    program_value_in = request.POST.get('value')
+    #this is assume
+    program_type_in = Type_programe.objects.get(pk=1)
+    program_day_in = Day.objects.get(pk=1)
+    program_month_in = Month.objects.get(pk=1)
+    program_year_in = Year.objects.get(pk=1)
+    # end assume
+    book = Pass_book.objects.get(pk=book_id)
+    book.program_set.create(head_program=program_name_in,\
+                             detail=program_detail_in,\
+                             value=program_value_in,\
+                             type_programe=program_type_in,\
+                             day_published=program_day_in,\
+                             month_published=program_month_in,\
+                             year_published=program_year_in,\
+                             )
+    book.balance -= float(program_value_in)
+    book.save()
+    return HttpResponseRedirect(reverse('accounting:book_detail', args=(book_id)))

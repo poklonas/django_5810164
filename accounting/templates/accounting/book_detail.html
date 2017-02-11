@@ -1,15 +1,57 @@
 <head>
-
+	<style>
+		th, th.program{
+			border: 2px solid black;
+			background-color: YellowGreen;
+			border-collapse: collapse
+		}
+		th.program{
+			width: 75%;
+		}
+		table{
+			width:90%;
+			border: 2px solid black;
+			border-collapse: collapse;
+		}
+		td{
+			border: 2px solid black;
+		}
+		tr:nth-child(odd){
+			background-color: MintCream;
+		}
+		tr:nth-child(even){
+			background-color: MistyRose;
+		}
+	</style>
 </head>
+
 
 <body style="background-color:SandyBrown">
 <a href="{% url 'accounting:user_book' pk=pass_book.user.id%}">Back to User manu</a>
-<h1> HI {{pass_book.book_name}} </h1>
-<h1> Your balance is {{pass_book.balance}} </h1>
+<h1> This Book Name :  {{pass_book.book_name}} </h1>
+<h2> Your balance is {{pass_book.balance}} </h2><br>
+<a href="{% url 'accounting:add_income' pk=pass_book.id %}">Add new Income</a><br>
+<a href="{% url 'accounting:add_expenses' pk=pass_book.id %}">Add new Expenses</a>
 
 {% if pass_book.program_set.all %}
+    <table>
+    	<tr>
+			<th class="user">Head Program</th>
+			<th>Type</th>
+			<th>day</th>
+			<th>month</th>
+			<th>year</th>
+			<th>value</th>
+		</tr>
 	{% for programe in pass_book.program_set.all %}
-		<h3>{{programe.detail}}</h3>
+        <tr>
+            <td style="text-align:center">{{programe.head_program}}</td>
+            <td style="text-align:center">{{programe.type_programe}}</td>	
+            <td style="text-align:center">{{programe.day_published}}</td>
+            <td style="text-align:center">{{programe.month_published}}</td>
+            <td style="text-align:center">{{programe.year_published}}</td>	    
+            <td style="text-align:center">{{programe.value}}</td>
+        </tr>
 	{% endfor %}
 {% else %}
 	<h1> none </h1>
