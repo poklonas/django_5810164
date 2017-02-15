@@ -1,11 +1,11 @@
 <head>
 	<style>
-		th, th.program{
+		th, th.list{
 			border: 2px solid black;
 			background-color: YellowGreen;
 			border-collapse: collapse
 		}
-		th.program{
+		th.list{
 			width: 75%;
 		}
 		table{
@@ -32,24 +32,18 @@
 <h2> Your balance is {{pass_book.balance}} </h2><br>
 <a href="{% url 'accounting:AddList' pk=pass_book.id %}">Add new List</a><br>
 
-{% if pass_book.program_set.all %}
+{% if pass_book.list_set.all %}
     <table>
     	<tr>
-			<th class="user">Head Program</th>
+			<th class="user">List Name</th>
 			<th>Type</th>
-			<th>day</th>
-			<th>month</th>
-			<th>year</th>
 			<th>value</th>
 		</tr>
-	{% for programe in pass_book.program_set.all %}
+	{% for list in pass_book.list_set.all %}
         <tr>
-            <td style="text-align:center">{{programe.head_program}}</td>
-            <td style="text-align:center">{{programe.type_programe}}</td>	
-            <td style="text-align:center">{{programe.day_published}}</td>
-            <td style="text-align:center">{{programe.month_published}}</td>
-            <td style="text-align:center">{{programe.year_published}}</td>	    
-            <td style="text-align:center">{{programe.value}}</td>
+            <td style="text-align:center">{{list.list_name}}</td>
+            <td style="text-align:center">{{list.list_type}}</td>	    
+            <td style="text-align:center">{{list.value}}</td>
         </tr>
 	{% endfor %}
 {% else %}

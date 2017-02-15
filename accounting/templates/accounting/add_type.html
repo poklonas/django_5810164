@@ -1,8 +1,8 @@
 <body style="background-color:SandyBrown">
-<a href="{% url 'accounting:user_book' pk=user.id %}">Back to user book</a>
+<a href="{% url 'accounting:type_manage' pk=user.id %}">Back to user book</a>
 
 <h1>Add type</h1>
-<form action="{%url 'accounting:page_add_type' pk=user.id %}" method="post">
+<form action="{%url 'accounting:func_add_type' user_id=user.id %}" method="post">
 {% csrf_token %}
 	type name   : <input type="text" name="type_name" size="50" required></input><br>
     Detail : <br><textarea name="detail" rows="10" cols="50"></textarea><br>

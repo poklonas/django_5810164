@@ -3,8 +3,5 @@ from .models import *
 
 admin.site.register(User)
 admin.site.register(Pass_book)
-admin.site.register(Type_programe)
-admin.site.register(Day)
-admin.site.register(Month)
-admin.site.register(Year)
-admin.site.register(Program)
+admin.site.register(List_type)
+admin.site.register(List)

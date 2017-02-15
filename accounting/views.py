@@ -3,12 +3,12 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
-from .models import User, Pass_book, Program,Type_programe, Day, Month, Year
+from .models import User, Pass_book, List, List_type
 
 class IndexView(generic.ListView): #for show home page that show all user
+    model = User
     template_name = 'accounting/index.html'
     context_object_name = 'user_list'
-    model = User
 
 
 class UserBook(generic.DetailView): # for show all user book
@@ -56,39 +56,39 @@ def func_add_book(request, user_id):
     user.pass_book_set.create(book_name=pass_book_name, founded=timezone.now())
     return HttpResponseRedirect(reverse('accounting:user_book', args=(user_id)))
 
-def func_add_list(request, book_id, type_for):
-    program_name_in = request.POST.get('program_name')
-    program_detail_in = request.POST.get('detail')
-    program_value_in = request.POST.get('value')
-    #this is assume
-    program_type_in = request.POST.get('type_text')
-    program_day_in = Day.objects.get(pk=1)
-    program_month_in = Month.objects.get(pk=1)
-    program_year_in = Year.objects.get(pk=1)
-    # end assume
+def func_add_list(request, book_id):
+    list_name_in = request.POST.get('list_name')
+    list_detail_in = request.POST.get('detail')
+    list_value_in = request.POST.get('value')
+    list_type_in = request.POST.get('type_text')
+    list_type_for_in = request.POST.get('type_for')
+    list_date_in = request.POST.get('date')
+    # start formate mm/dd/yyyy to yyyy-mm-dd
+    year_in = list_date_in[6:]
+    day_in = list_date_in[3:5]
+    month_in = list_date_in[0:2]
+    list_date_in = year_in + "-" + month_in + "-" + day_in
+    # end formate to yyyy-mm-dd
     book = Pass_book.objects.get(pk=book_id)
     try:
-        programe_instant = Type_programe.objects.get(type_name=program_type_in)
+        list_instant = List_type.objects.get(type_name=list_type_in)
     except:
          user = User.objects.get(pk=book.user.id)
-         user.type_programe_set.create(type_name=program_type_in,\
-                                       type_for=type_for)
-         programe_instant = Type_programe.objects.get(type_name=program_type_in)
-    book.program_set.create(head_program=program_name_in,\
-                             detail=program_detail_in,\
-                             value=program_value_in,\
-                             type_programe=programe_instant,\
-                             day_published=program_day_in,\
-                             month_published=program_month_in,\
-                             year_published=program_year_in,\
+         user.list_type_set.create(type_name=list_type_in,\
+                                       type_for=list_type_for_in)
+         list_instant = List_type.objects.get(type_name=list_type_in)
+    book.list_set.create(list_name=list_name_in,\
+                             detail=list_detail_in,\
+                             value=list_value_in,\
+                             list_type=list_instant,\
+                             date = list_date_in,\
                              )
-    if(type_for == 'income'):
-        book.balance += float(program_value_in)
+    if(list_type_for_in == 'income'):
+        book.balance += float(list_value_in)
     else:
-        book.balance -= float(program_value_in)
+        book.balance -= float(list_value_in)
     book.save()
-    print(request.POST.get('date'))
-    return HttpResponseRedirect(reverse('accounting:book_detail', args=(book_id)))
+    return HttpResponseRedirect(reverse('accounting:book_detail', args=(book_id),))
 
 
 def func_add_type(request, user_id):
@@ -96,7 +96,7 @@ def func_add_type(request, user_id):
     type_name_in = request.POST.get('type_name')
     type_detail_in = request.POST.get('detail')
     type_for_in = request.POST.get('type_for')
-    user.type_programe_set.create(type_name=type_name_in,\
+    user.list_type_set.create(type_name=type_name_in,\
                                   type_detail=type_detail_in,\
                                   type_for=type_for_in)
     return HttpResponseRedirect(reverse('accounting:type_manage', args=(user_id)))

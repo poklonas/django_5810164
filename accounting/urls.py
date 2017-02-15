@@ -15,5 +15,5 @@ urlpatterns = [
     url(r'^(?P<pk>[0-9]+)/page_add_type/$', views.PageAddType.as_view(), name='page_add_type'),
     url(r'^(?P<user_id>[0-9]+)/func_add_type/$', views.func_add_type, name='func_add_type'),
     url(r'^(?P<user_id>[0-9]+)/func_add_book/$', views.func_add_book, name='func_add_book'),
-    url(r'^(?P<book_id>[0-9]+)/(?P<type_for>[a-zA-Z]+)/func_add_list/$', views.func_add_list, name='func_add_list'),
+    url(r'^(?P<book_id>[0-9]+)/func_add_list/$', views.func_add_list, name='func_add_list'),
 ]
