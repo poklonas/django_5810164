@@ -13,11 +13,11 @@
 <body style="background-color:SandyBrown">
 <a href="{% url 'accounting:book_detail' pk=pass_book.id %}">Back to Book menu</a>
 <h1>Add Program</h1>
-<form action="{%url 'accounting:func_add_income' book_id=pass_book.id %}" method="post">
+<form action="{%url 'accounting:func_add_list' book_id=pass_book.id type_for='income' %}" method="post">
 {% csrf_token %}
 	Program name   : <input type="text" name="program_name" size="50" required></input><br>
     Detail : <br><textarea name="detail" rows="10" cols="50"></textarea><br>
-    Value : <input type="number" name="value" min="0" step="0.01" required></input><br>
+    Value : <input id = val type="number" name="value" min="0" step="0.01" required></input><br>
     type is :<input list="income" name="type_text" required><br>
 	<datalist id="income">
         {% for type in pass_book.user.type_programe_set.all %}

@@ -30,8 +30,7 @@
 <a href="{% url 'accounting:user_book' pk=pass_book.user.id%}">Back to User manu</a>
 <h1> This Book Name :  {{pass_book.book_name}} </h1>
 <h2> Your balance is {{pass_book.balance}} </h2><br>
-<a href="{% url 'accounting:add_income' pk=pass_book.id %}">Add new Income</a><br>
-<a href="{% url 'accounting:add_expenses' pk=pass_book.id %}">Add new Expenses</a>
+<a href="{% url 'accounting:AddList' pk=pass_book.id %}">Add new List</a><br>
 
 {% if pass_book.program_set.all %}
     <table>
