@@ -1,29 +1,24 @@
 <head>
+  	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  	<link rel="stylesheet" href="/resources/demos/style.css">
+  	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  	<script>
+  	$( function() {
+  	  $( "#datepicker" ).datepicker();
+  	} );
+  	</script>
 	<style>
-		th, th.list{
-			border: 2px solid black;
-			background-color: #d66647;
-			border-collapse: collapse
+		a.box:link, a.box:visited{
+            background-color: #cfe486;
+    		color: black;
+    		padding: 14px 25px;
+    		text-align: center;
+   			text-decoration: none;
+   			display: inline-block;
 		}
-		th.list{
-			width: 60%;
-		}
-		th.date{
-            width: 10%;
-		}
-		table{
-			width:90%;
-			border: 2px solid black;
-			border-collapse: collapse;
-		}
-		td{
-			border: 2px solid black;
-		}
-		tr:nth-child(odd){
-			background-color: #dad8f6;
-		}
-		tr:nth-child(even){
-			background-color: #f1edfb;
+		a.box:hover, a.box:active{
+    		background-color: #c7df71;
 		}
 	</style>
 </head>
@@ -32,26 +27,16 @@
 <body style="background-color:#47d666">
 <a href="{% url 'accounting:user_book' pk=pass_book.user.id%}">Back to User manu</a>
 <h1> This Book Name :  {{pass_book.book_name}} </h1>
-<h2> Your balance is {{pass_book.balance}} </h2><br>
-<a href="{% url 'accounting:AddList' pk=pass_book.id %}">Add new List</a><br>
+<h2> Your balance is {{pass_book.balance}} </h2>
+<a class="box" href="{% url 'accounting:AddList' pk=pass_book.id %}">Add new List</a>
 
-{% if pass_book.list_set.all %}
-    <table>
-    	<tr>
-			<th class="list">List Name</th>
-			<th>Type</th>
-			<th>value</th>
-			<th class="date">date</th>
-		</tr>
-	{% for list in pass_book.list_set.all %}
-        <tr>
-            <td style="text-align:center">{{list.list_name}}</td>
-            <td style="text-align:center">{{list.list_type}}</td>	    
-            <td style="text-align:center">{{list.value}}</td>
-            <td style="text-align:center">{{list.date}}</td>
-        </tr>
-	{% endfor %}
-{% else %}
-	<h1> none </h1>
-{% endif %}
+<form action="{% url 'accounting:list_in_date' book_id=pass_book.id %}" target='show_list' method="post">
+ {% csrf_token %}
+ 	Select Date: <input type="text" id="datepicker" name="date" required>
+ 	<input type="submit" value="Show List in date">
+ </form>
+
+<center>
+<iframe src="{% url 'accounting:list_in_date' book_id=pass_book.id %}"  height=60% width=100% name='show_list'></iframe>
+</center>
 </body>

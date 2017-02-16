@@ -48,3 +48,17 @@ class List(models.Model):
     def __str__(self):
         return self.list_name
 
+    def get_date(self):
+        if(self.date.month >9):
+            month = str(self.date.month)
+        else:
+            month = "0" + str(self.date.month)
+        if(self.date.day >9):
+            day = str(self.date.day)
+        else:
+            day = "0" + str(self.date.day)
+        year = str(self.date.year)
+        date = year + "-" + month + "-" + day
+        return date
+
+

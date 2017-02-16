@@ -1,0 +1,54 @@
+<head>
+    <style>
+        th, th.list{
+            border: 2px solid black;
+            background-color: #d66647;
+            border-collapse: collapse
+        }
+        th.list{
+            width: 60%;
+        }
+        th.date{
+            width: 10%;
+        }
+        table{
+            width:100%;
+            border: 2px solid black;
+            border-collapse: collapse;
+        }
+        td{
+            border: 2px solid black;
+        }
+        tr:nth-child(odd){
+            background-color: #dad8f6;
+        }
+        tr:nth-child(even){
+            background-color: #f1edfb;
+        }
+    </style>
+</head>
+
+<body>
+{% if pass_book.list_set.all %}
+    <table>
+    	<tr>
+			<th class="list">List Name</th>
+			<th>Type</th>
+			<th>value</th>
+			<th class="date">date</th>
+		</tr>
+	{% for list in pass_book.list_set.all %}
+        {% if list.get_date == date_in %}
+        <tr>
+            <td style="text-align:center">{{list.list_name}}</td>
+            <td style="text-align:center">{{list.list_type}}</td>	    
+            <td style="text-align:center">{{list.value}}</td>
+            <td style="text-align:center">{{list.date}}</td>
+        </tr>
+        {% endif %}
+	{% endfor %}
+{% else %}
+     In this date You dont have any list
+{% endif %}
+</table>
+</body>

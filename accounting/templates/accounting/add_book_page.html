@@ -1,0 +1,9 @@
+<body style="background-color:#47d666">
+<a href="{% url 'accounting:user_book' pk=user.id %}">Back to user menu</a>
+<h1>Add Pass Book</h1>
+<form action="{%url 'accounting:func_add_book' user_id=user.id %}" method="post">
+{% csrf_token %}
+	Pass_Book_name   : <input type="text" name="book_name" size="50" required></input>
+	<input type="submit" value="Add">
+</form>
+</body>

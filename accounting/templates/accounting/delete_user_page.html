@@ -24,38 +24,25 @@
 			background-color: #f1edfb;
 		}
 
-		a.box:link, a.box:visited{
-            background-color: #cfe486;
-    		color: black;
-    		padding: 14px 25px;
-    		text-align: center;
-   			text-decoration: none;
-   			display: inline-block;
-		}
-		a.box:hover, a.box:active{
-    		background-color: #c7df71;
-		}
-
 	</style>
 </head>
 
 <body style="background-color:#47d666">
+<a href="{% url 'accounting:index' %}">Back to main manu</a>
 <center>
-<h1> Welcome </h1>
-<h2> Choise you account or add new account </h2>
-<a class="box" href="{% url 'accounting:add_user_page' %}">ADD NEW USER</a>
-<a class="box" href="{% url 'accounting:delete_user_page' %}">Delete USER</a> <br><br>
-
 {% if user_list %}
     <table>
     	<tr>
 			<th class="user">User Name</th>
-			<th>founded</th>
+			<th> Delete </th>
 		</tr>
 	{% for user in user_list %}
         <tr>
 		    <td><a href="{% url 'accounting:user_book' pk=user.id %}">{{user.user_name}}</a></td>
-            <td style="text-align:center">{{user.founded}}</td>
+            <form action="{%url 'accounting:func_delete_user' user_id=user.id %}" method="post">
+				{% csrf_token %}
+            <td><input type="submit" value="Delete This User"></td>
+            </form>
         </tr>
 	{% endfor %}
 {% endif %}

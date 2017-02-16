@@ -1,0 +1,51 @@
+<head>
+	<style>
+		th, th.book{
+			border: 2px solid black;
+			background-color: #d66647;
+			border-collapse: collapse
+		}
+		th.book{
+			width: 65%;
+		}
+		table{
+			width:70%;
+			border: 2px solid black;
+			border-collapse: collapse;
+		}
+		td{
+			text-align:center;
+			border: 2px solid black;
+		}
+		tr:nth-child(odd){
+			background-color: #dad8f6;
+		}
+		tr:nth-child(even){
+			background-color: #f1edfb;
+		}
+
+	</style>
+</head>
+
+<body style="background-color:#47d666">
+<a href="{% url 'accounting:user_book' pk=user.id %}">Back to user menu</a>
+<center>
+{% if user.pass_book_set.all %}
+    <table>
+    	<tr>
+			<th class="book">Book Name</th>
+			<th> Delete </th>
+		</tr>
+	{% for book in user.pass_book_set.all %}
+        <tr>
+		    <td>{{book.book_name}}</td>
+            <form action="{%url 'accounting:func_delete_book' book_id=book.id %}" method="post">
+				{% csrf_token %}
+            <td><input type="submit" value="Delete This Book"></td>
+            </form>
+        </tr>
+	{% endfor %}
+{% endif %}
+</table>
+</center>
+</body>

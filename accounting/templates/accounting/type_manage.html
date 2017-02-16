@@ -28,23 +28,41 @@
 
 <body style="background-color:#47d666">
 <a href="{% url 'accounting:user_book' pk=user.id %}">Back to User book</a><br>
-<a href="{% url 'accounting:page_add_type' pk=user.id %}">Make new type</a>
+<h2> If you delete any type list which have type like that must be lost !! </h2>
+<br>
 <center>
-{% if user.list_type_set.all %}
+{% if not user.list_type_set.all %}
+	<h1> May be you should make new list type? </h1>
+{% endif %}
     <table>
     	<tr>
 			<th>Type Name</th>
 			<th class="detail">Detail</th>
 			<th>for</th>
+			<th>function</th>
 		</tr>
+		<form action="{%url 'accounting:func_add_type' user_id=user.id %}" method="post">
+		{% csrf_token %}
+			<td><input type="text" name="type_name" size="25" required></input></td>
+    		<td><input type="text" name="detail" size="60"></input></td>
+    		<td><select name="type_for">
+    		    <option value="income">Income</option>
+            	<option value="expenses">Expenses</option>
+            	</select></td>
+            <td><input type="submit" value="Make New Type"></td>
+		</form>
+
 	{% for type in user.list_type_set.all %}
         <tr>
             <td>{{type.type_name}}</td>
             <td>{{type.type_detail}}</td>
             <td style="text-align:center">{{type.type_for}}</td>
+            <form action="{%url 'accounting:func_delete_type' type_id=type.id %}" method="post">
+				{% csrf_token %}
+            <td><input type="submit" value="Delete This Type"></td>
+			</form>
         </tr>
 	{% endfor %}
-{% endif %}
 </table>
 </center>
 </body>
