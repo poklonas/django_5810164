@@ -2,11 +2,14 @@
 	<style>
 		th, th.list{
 			border: 2px solid black;
-			background-color: YellowGreen;
+			background-color: #d66647;
 			border-collapse: collapse
 		}
 		th.list{
-			width: 75%;
+			width: 60%;
+		}
+		th.date{
+            width: 10%;
 		}
 		table{
 			width:90%;
@@ -17,16 +20,16 @@
 			border: 2px solid black;
 		}
 		tr:nth-child(odd){
-			background-color: MintCream;
+			background-color: #dad8f6;
 		}
 		tr:nth-child(even){
-			background-color: MistyRose;
+			background-color: #f1edfb;
 		}
 	</style>
 </head>
 
 
-<body style="background-color:SandyBrown">
+<body style="background-color:#47d666">
 <a href="{% url 'accounting:user_book' pk=pass_book.user.id%}">Back to User manu</a>
 <h1> This Book Name :  {{pass_book.book_name}} </h1>
 <h2> Your balance is {{pass_book.balance}} </h2><br>
@@ -35,15 +38,17 @@
 {% if pass_book.list_set.all %}
     <table>
     	<tr>
-			<th class="user">List Name</th>
+			<th class="list">List Name</th>
 			<th>Type</th>
 			<th>value</th>
+			<th class="date">date</th>
 		</tr>
 	{% for list in pass_book.list_set.all %}
         <tr>
             <td style="text-align:center">{{list.list_name}}</td>
             <td style="text-align:center">{{list.list_type}}</td>	    
             <td style="text-align:center">{{list.value}}</td>
+            <td style="text-align:center">{{list.date}}</td>
         </tr>
 	{% endfor %}
 {% else %}

@@ -2,7 +2,7 @@
 	<style>
 		th, th.detail{
 			border: 2px solid black;
-			background-color: YellowGreen;
+			background-color: #d66647;
 			border-collapse: collapse
 		}
 		th.detail{
@@ -14,21 +14,22 @@
 			border-collapse: collapse;
 		}
 		td{
+			text-align:center;
 			border: 2px solid black;
 		}
 		tr:nth-child(odd){
-			background-color: MintCream;
+			background-color: #dad8f6;
 		}
 		tr:nth-child(even){
-			background-color: MistyRose;
+			background-color: #f1edfb;
 		}
 	</style>
 </head>
 
-<body style="background-color:SandyBrown">
+<body style="background-color:#47d666">
 <a href="{% url 'accounting:user_book' pk=user.id %}">Back to User book</a><br>
 <a href="{% url 'accounting:page_add_type' pk=user.id %}">Make new type</a>
-
+<center>
 {% if user.list_type_set.all %}
     <table>
     	<tr>
@@ -44,4 +45,6 @@
         </tr>
 	{% endfor %}
 {% endif %}
+</table>
+</center>
 </body>

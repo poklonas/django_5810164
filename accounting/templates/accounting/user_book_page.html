@@ -2,7 +2,7 @@
 	<style>
 		th, th.book{
 			border: 2px solid black;
-			background-color: YellowGreen;
+			background-color: #d66647;
 			border-collapse: collapse
 		}
 		th.book{
@@ -14,23 +14,24 @@
 			border-collapse: collapse;
 		}
 		td{
+			text-align:center;
 			border: 2px solid black;
 		}
 		tr:nth-child(odd){
-			background-color: MintCream;
+			background-color: #dad8f6;
 		}
 		tr:nth-child(even){
-			background-color: MistyRose;
+			background-color: #f1edfb;
 		}
 	</style>
 </head>
 
-<body style="background-color:SandyBrown">
+<body style="background-color:47d666">
 <a href="{% url 'accounting:index' %}">Back to main manu</a>
 <h1> HI {{user.user_name}} </h1>
-<a href="{% url 'accounting:book_manage' pk=user.id %}"><h2>ADD NEW PASS_BOOK</h2></a>
-<a href="{% url 'accounting:type_manage' pk=user.id %}"><h2>Go to Type_manage</h2></a>
-
+<a href="{% url 'accounting:book_manage' pk=user.id %}"><h3>ADD NEW PASS_BOOK</h3></a>
+<a href="{% url 'accounting:type_manage' pk=user.id %}"><h3>Go to Type_manage</h3></a>
+<center>
 {% if user.pass_book_set.all %}
     <table>
     	<tr>
@@ -44,4 +45,5 @@
         </tr>
 	{% endfor %}
 {% endif %}
+</center>
 </body>

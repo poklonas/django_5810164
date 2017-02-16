@@ -2,31 +2,32 @@
 	<style>
 		th, th.user{
 			border: 2px solid black;
-			background-color: YellowGreen;
+			background-color: #d66647;
 			border-collapse: collapse
 		}
 		th.user{
-			width: 75%;
+			width: 65%;
 		}
 		table{
-			width:90%;
+			width:70%;
 			border: 2px solid black;
 			border-collapse: collapse;
 		}
 		td{
+			text-align:center;
 			border: 2px solid black;
 		}
 		tr:nth-child(odd){
-			background-color: MintCream;
+			background-color: #dad8f6;
 		}
 		tr:nth-child(even){
-			background-color: MistyRose;
+			background-color: #f1edfb;
 		}
 	</style>
 </head>
 
-<body style="background-color:SandyBrown">
-
+<body style="background-color:#47d666">
+<center>
 <h1> Welcome </h1>
 <h2> Choise you account or add new account </h2>
 <a href="{% url 'accounting:add_user_page' %}"><h2>ADD NEW USER</h2></a>
@@ -44,4 +45,6 @@
         </tr>
 	{% endfor %}
 {% endif %}
+</table>
+</center>
 </body>
