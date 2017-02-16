@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^add_user_page/$', views.add_user_page, name='add_user_page'),
     url(r'^delete_user_page/$', views.DeleteUser.as_view(), name='delete_user_page'),
 
+    url(r'^(?P<pk>[0-9]+)/DeleteListPage/$', views.DeleteListPage.as_view(), name='DeleteListPage'),
     url(r'^(?P<pk>[0-9]+)/delete_book_page/$', views.DeleteBookPage.as_view(), name='delete_book_page'),
     url(r'^(?P<pk>[0-9]+)/add_book_page/$', views.AddBookPage.as_view(), name='add_book_page'), 
     url(r'^(?P<pk>[0-9]+)/user_book/$', views.UserBook.as_view(), name='user_book'),
@@ -16,6 +17,7 @@ urlpatterns = [
     url(r'^(?P<pk>[0-9]+)/TypeManage/$', views.TypeManage.as_view(), name="type_manage"), # add or delete tpye
 
     url(r'^func_add_user/$', views.func_add_user, name='add_user_func'),
+    url(r'^(?P<list_id>[0-9]+)/func_delete_list/$', views.func_delete_list, name='func_delete_list'),
     url(r'^(?P<user_id>[0-9]+)/func_delete_user/$', views.func_delete_user, name='func_delete_user'),
     url(r'^(?P<user_id>[0-9]+)/func_add_type/$', views.func_add_type, name='func_add_type'),
     url(r'^(?P<user_id>[0-9]+)/func_add_book/$', views.func_add_book, name='func_add_book'),

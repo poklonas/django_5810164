@@ -2,14 +2,11 @@
     <style>
         th, th.list{
             border: 2px solid black;
-            background-color: #d66647;
+            background-color: #f65a83;
             border-collapse: collapse
         }
         th.list{
             width: 60%;
-        }
-        th.date{
-            width: 10%;
         }
         table{
             width:100%;
@@ -19,36 +16,44 @@
         td{
             border: 2px solid black;
         }
-        tr:nth-child(odd){
-            background-color: #dad8f6;
+        tr.income{
+            background-color: #8af9a5;
         }
-        tr:nth-child(even){
-            background-color: #f1edfb;
+        tr.expenses{
+            background-color: #f67f5a;
         }
     </style>
 </head>
 
-<body>
+<body style="background-color:#d4f9f8" >
 {% if pass_book.list_set.all %}
     <table>
     	<tr>
 			<th class="list">List Name</th>
 			<th>Type</th>
-			<th>value</th>
-			<th class="date">date</th>
+			<th>income</th>
+			<th>expenses</th>
 		</tr>
 	{% for list in pass_book.list_set.all %}
         {% if list.get_date == date_in %}
-        <tr>
-            <td style="text-align:center">{{list.list_name}}</td>
-            <td style="text-align:center">{{list.list_type}}</td>	    
-            <td style="text-align:center">{{list.value}}</td>
-            <td style="text-align:center">{{list.date}}</td>
+            {% if list.list_type.type_for == 'income' %}
+            <tr class="income">
+                <td style="text-align:center">{{list.list_name}}</td>
+                <td style="text-align:center">{{list.list_type}}</td>
+                <td style="text-align:center">{{list.value}}</td>
+                <td style="text-align:center">-</td>
+            </tr>
+            {% else %}
+            <tr class="expenses">
+                <td style="text-align:center">{{list.list_name}}</td>
+                <td style="text-align:center">{{list.list_type}}</td>
+                <td style="text-align:center">-</td>
+                <td style="text-align:center">{{list.value}}</td>
+            </tr>
+            {% endif %}
         </tr>
         {% endif %}
 	{% endfor %}
-{% else %}
-     In this date You dont have any list
 {% endif %}
 </table>
 </body>

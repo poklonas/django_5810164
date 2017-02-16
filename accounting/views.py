@@ -40,6 +40,11 @@ class AddList(generic.DetailView): # go to add list page
     template_name = 'accounting/add_list_page.html'
 
 
+class DeleteListPage(generic.DetailView):
+    model = Pass_book
+    template_name = 'accounting/delete_list_page.html'
+
+
 class TypeManage(generic.DetailView): # go to add or delete type page
     model = User
     template_name = 'accounting/type_manage.html'
@@ -123,6 +128,12 @@ def func_delete_type(request, type_id): # delete type and any list that type nam
     user_id = selected_type.user.id
     selected_type.delete()
     return HttpResponseRedirect(reverse('accounting:type_manage', args=[user_id]))
+
+def func_delete_list(request, list_id):
+    list_in = List.objects.get(pk=list_id)
+    book_id = list_in.pass_book.id
+    list_in.delete()
+    return HttpResponseRedirect(reverse('accounting:DeleteListPage', args=[book_id]))
 
 def ListInDate(request, book_id):
     pass_book = Pass_book.objects.get(pk=book_id)

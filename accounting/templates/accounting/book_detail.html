@@ -29,6 +29,7 @@
 <h1> This Book Name :  {{pass_book.book_name}} </h1>
 <h2> Your balance is {{pass_book.balance}} </h2>
 <a class="box" href="{% url 'accounting:AddList' pk=pass_book.id %}">Add new List</a>
+<a class="box" href="{% url 'accounting:DeleteListPage' pk=pass_book.id %}">Delete List</a>
 
 <form action="{% url 'accounting:list_in_date' book_id=pass_book.id %}" target='show_list' method="post">
  {% csrf_token %}
@@ -37,6 +38,6 @@
  </form>
 
 <center>
-<iframe src="{% url 'accounting:list_in_date' book_id=pass_book.id %}"  height=60% width=100% name='show_list'></iframe>
+<iframe src="{% url 'accounting:list_in_date' book_id=pass_book.id %}"  height=65% width=100% name='show_list'></iframe>
 </center>
 </body>
