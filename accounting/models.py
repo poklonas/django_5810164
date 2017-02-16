@@ -26,6 +26,9 @@ class Pass_book(models.Model):
     def was_founded_recently(self):
         return self.founded >= timezone.now() - datetime.timedelta(days=1)
 
+    def set_balance(self, value):
+        self.balance = value
+
 
 class List_type(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

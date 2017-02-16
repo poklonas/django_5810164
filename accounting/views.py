@@ -109,6 +109,7 @@ def func_add_list(request, book_id): # add a list to a book
     else:
         book.balance -= float(list_value_in)
     book.save()
+    check_balance_book(book.id)
     return HttpResponseRedirect(reverse('accounting:book_detail', args=[book.id]))
 
 
@@ -127,12 +128,15 @@ def func_delete_type(request, type_id): # delete type and any list that type nam
     selected_type = List_type.objects.get(pk=type_id)
     user_id = selected_type.user.id
     selected_type.delete()
+    check_balance_user(user_id)
     return HttpResponseRedirect(reverse('accounting:type_manage', args=[user_id]))
 
 def func_delete_list(request, list_id):
     list_in = List.objects.get(pk=list_id)
-    book_id = list_in.pass_book.id
+    book = list_in.pass_book
+    book_id = book.id
     list_in.delete()
+    check_balance_book(book_id)
     return HttpResponseRedirect(reverse('accounting:DeleteListPage', args=[book_id]))
 
 def ListInDate(request, book_id):
@@ -151,3 +155,30 @@ def ListInDate(request, book_id):
              'pass_book':pass_book, 
              'date_in':date_in,
             })
+
+def check_balance_book(book_id):
+    book = Pass_book.objects.get(pk=book_id)
+    balance = 0
+    list_all = List.objects.filter(pass_book=book_id)
+    for list_in in list_all :
+        if(list_in.list_type.type_for == 'income'):
+            balance += list_in.value
+        else:
+            balance -= list_in.value
+    book.set_balance(balance)
+    book.save()
+
+def check_balance_user(user_id):
+    user = User.objects.get(pk=user_id)
+    book_all = Pass_book.objects.filter(user=user_id)
+    for book in book_all :
+        book = Pass_book.objects.get(pk=book.id)
+        balance = 0
+        list_all = List.objects.filter(pass_book=book.id)
+        for list_in in list_all :
+            if(list_in.list_type.type_for == 'income'):
+                balance += list_in.value
+            else:
+                balance -= list_in.value
+        book.set_balance(balance)
+        book.save()
