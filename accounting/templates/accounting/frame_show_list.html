@@ -26,6 +26,8 @@
 </head>
 
 <body style="background-color:#d4f9f8" >
+<center>
+<h3>Show List in : {{date_in}}</h3>
 {% if pass_book.list_set.all %}
     <table>
     	<tr>
@@ -56,4 +58,5 @@
 	{% endfor %}
 {% endif %}
 </table>
+</center>
 </body>

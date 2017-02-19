@@ -135,9 +135,10 @@ def func_delete_list(request, list_id):
 
 def ListInDate(request, book_id):
     pass_book = Pass_book.objects.get(pk=book_id)
-    try:
+    date = request.POST.get('date')
+    if(date != None):
         date_in = request.POST.get('date')
-    except:
+    else:
         date_in = time.strftime("%Y-%m-%d")
     return render(request, 'accounting/frame_show_list.html',{
              'pass_book':pass_book, 
