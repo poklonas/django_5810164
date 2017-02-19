@@ -84,12 +84,6 @@ def func_add_list(request, book_id): # add a list to a book
     list_type_in = request.POST.get('type_text')
     list_type_for_in = request.POST.get('type_for')
     list_date_in = request.POST.get('date') 
-    # start formate mm/dd/yyyy to yyyy-mm-dd
-    year_in = list_date_in[6:]
-    day_in = list_date_in[3:5]
-    month_in = list_date_in[0:2]
-    list_date_in = year_in + "-" + month_in + "-" + day_in
-    # end formate to yyyy-mm-dd
     book = Pass_book.objects.get(pk=book_id) # get book by using book_id 
     try:         # try if dont have type it will make new one for use
         list_instant = List_type.objects.get(type_name=list_type_in) # have any list_type_name like input?
@@ -143,12 +137,6 @@ def ListInDate(request, book_id):
     pass_book = Pass_book.objects.get(pk=book_id)
     try:
         date_in = request.POST.get('date')
-        # start formate mm/dd/yyyy to yyyy-mm-dd
-        year_in = date_in[6:]
-        day_in = date_in[3:5]
-        month_in = date_in[0:2]
-        date_in = year_in + "-" + month_in + "-" + day_in
-        # end formate to yyyy-mm-dd
     except:
         date_in = time.strftime("%Y-%m-%d")
     return render(request, 'accounting/frame_show_list.html',{
