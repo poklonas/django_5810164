@@ -1,0 +1,64 @@
+body{
+    background-image: url("images/background_main.jpg"); 
+    /* cr. https://pixabay.com/en/iceland-arctic-fox-animal-wildlife-1979445/ --> */
+    background-size:     cover;    
+    background-repeat:   no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    margin:0;
+}
+
+div.show_app{
+    background-color: rgba(148, 255, 228, 0.3);
+    border-radius: 20px;
+    border: 10px dotted;
+    border-color: #2C4C44;
+    padding: 25px;
+    margin: 10% 60%;
+    width: 30%;
+    height: 50%;
+}
+
+ul.menu_bar{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    list-style-type: none;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #1D332D;
+}
+
+li.menu_bar{
+    float: left;
+}
+
+li.menu_bar a{
+    display: block;
+    color: #FFB400;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li.menu_bar a:hover{
+    background-color: #67B29F;
+}
+
+a.app_list{
+    text-decoration: none;
+}
+
+a.app_list:link, a.app_list:visited{
+    font-size: 20px;
+    color: #262F2D;
+}
+
+a.app_list:hover, a.app_list:active {
+    font-size: 30px;
+    color: #FFCE00;
+}
+
+

@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'homepage.apps.HomepageConfig',
 	'accounting.apps.AccountingConfig',
     'bmi.apps.BmiConfig',
     'django.contrib.admin',
