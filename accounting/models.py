@@ -64,4 +64,13 @@ class List(models.Model):
         date = year + "-" + month + "-" + day
         return date
 
+    def get_year(self):
+        return self.date.year
+
+    def get_month(self):
+        return self.date.month
+
+    def get_day(self):
+        return self.date.day
+
 

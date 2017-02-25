@@ -1,4 +1,5 @@
 import time
+import csv
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -171,3 +172,32 @@ def check_balance_user(user_id):
                 balance -= list_in.value
         book.set_balance(balance)
         book.save()
+
+def save_data(request, book_id):
+    try: # if have a date condition
+        date_input = request.POST.get('date')
+        all_list = List.objects.filter(date=date_input, pass_book=book_id)
+    except:
+        all_list = List.objects.filter(pass_book=book_id)
+    response = HttpResponse(content_type='text/csv') # set type for not return as html
+    response['Content-Disposition'] = 'attachment; filename="all_list_data.csv"' # file name
+    # start write #
+    field = ['Year', 'Month', 'Day', 'Detail', 'Income', 'Expenses'] # head
+    writer = csv.DictWriter(response, fieldnames=field)
+    writer.writeheader() # write head
+    for a_list in all_list:
+        if a_list.list_type.type_for == 'income':
+            writer.writerow({'Year' : a_list.get_year(),
+                             'Month' : a_list.get_month(),
+                             'Day' : a_list.get_day(),
+                             'Detail' : a_list.list_name,
+                             'Income' : a_list.value})
+        else:
+            writer.writerow({'Year' : a_list.get_year(),
+                             'Month' : a_list.get_month(),
+                             'Day' : a_list.get_day(),
+                             'Detail' : a_list.list_name,
+                             'Expenses' : a_list.value})
+    # stop write #
+    return response
+

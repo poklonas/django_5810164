@@ -27,4 +27,5 @@ urlpatterns = [
 
     #special
     url(r'^(?P<book_id>[0-9]+)/list_in_date/$', views.ListInDate, name='list_in_date'),
+    url(r'^(?P<book_id>[0-9]+)/download_data/$', views.save_data, name='save_data'),
 ]

@@ -33,11 +33,13 @@
 <h2> Your balance is {{pass_book.balance}} </h2>
 <a class="box" href="{% url 'accounting:AddList' pk=pass_book.id %}">Add new List</a>
 <a class="box" href="{% url 'accounting:DeleteListPage' pk=pass_book.id %}">Delete List</a>
+<a class="box" href="{% url 'accounting:save_data' book_id=pass_book.id %}">Load All Data</a>
 
-<form action="{% url 'accounting:list_in_date' book_id=pass_book.id %}" target='show_list' method="post">
+<form target='show_list' method="post">
  {% csrf_token %}
  	Select Date: <input type="text" id="datepicker" name="date" required>
- 	<input type="submit" value="Show List in date">
+ 	<input type="submit" value="Show List in date" formAction="{% url 'accounting:list_in_date' book_id=pass_book.id %}">
+    <input type="submit" value="Load data in this date" formAction="{% url 'accounting:save_data' book_id=pass_book.id %}">
  </form>
 
 <center>
