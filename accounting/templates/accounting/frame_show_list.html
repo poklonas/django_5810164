@@ -1,31 +1,29 @@
 <head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'accounting/main_style.css' %}" />
     <style>
-        th, th.list{
-            border: 2px solid black;
-            background-color: #f65a83;
-            border-collapse: collapse
-        }
         th.list{
             width: 60%;
         }
+        tr:nth-child(odd){
+            background-color: #E9E6E7;
+        }
+
+        tr:nth-child(even){
+            background-color: #E9E6E7;
+        }
         table{
-            width:100%;
+            width:90%;
             border: 2px solid black;
             border-collapse: collapse;
         }
-        td{
-            border: 2px solid black;
-        }
-        tr.income{
-            background-color: #8af9a5;
-        }
-        tr.expenses{
-            background-color: #f67f5a;
-        }
+		body{
+			background-image: none;
+		}
     </style>
 </head>
 
-<body style="background-color:#d4f9f8" >
+<body>
 <center>
 <h3>Show List in : {{date_in}}</h3>
 {% if pass_book.list_set.all %}
@@ -39,18 +37,18 @@
 	{% for list in pass_book.list_set.all %}
         {% if list.get_date == date_in %}
             {% if list.list_type.type_for == 'income' %}
-            <tr class="income">
-                <td style="text-align:center">{{list.list_name}}</td>
-                <td style="text-align:center">{{list.list_type}}</td>
-                <td style="text-align:center">{{list.value}}</td>
-                <td style="text-align:center">-</td>
+            <tr>
+                <td>{{list.list_name}}</td>
+                <td>{{list.list_type}}</td>
+                <td style="color:#206F00">{{list.value}}</td>
+                <td>-</td>
             </tr>
             {% else %}
-            <tr class="expenses">
-                <td style="text-align:center">{{list.list_name}}</td>
-                <td style="text-align:center">{{list.list_type}}</td>
-                <td style="text-align:center">-</td>
-                <td style="text-align:center">{{list.value}}</td>
+            <tr>
+                <td>{{list.list_name}}</td>
+                <td>{{list.list_type}}</td>
+                <td>-</td>
+                <td style="color:#B41200">{{list.value}}</td>
             </tr>
             {% endif %}
         </tr>

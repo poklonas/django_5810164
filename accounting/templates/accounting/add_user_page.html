@@ -1,9 +1,19 @@
-<body style="background-color:#47d666">
-<a href="{% url 'accounting:index' %}">Back to main manu</a>
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'accounting/main_style.css' %}" />
+</head>
+
+<body>
+<ul class="menu_bar">
+    <li class="menu_bar"><a href="{% url 'accounting:index' %}">Back to main manu</a></li>
+</ul>
+
+<div class="content">
 <h1>Add new User</h1>
 <form action="{%url 'accounting:add_user_func'%}" method="post">
 {% csrf_token %}
 	User_name   : <input type="text" name="user_name" size="50" required></input>
 	<input type="submit" value="Add">
 </form>
+</div>
 </body>

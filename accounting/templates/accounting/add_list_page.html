@@ -11,10 +11,16 @@
     });
   } );
   </script>
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'accounting/main_style.css' %}" />
 </head>
 
-<body style="background-color:#47d666">
-<a href="{% url 'accounting:book_detail' pk=pass_book.id %}">Back to Book menu</a>
+<body>
+<ul class="menu_bar">
+    <li class="menu_bar"><a href="{% url 'accounting:book_detail' pk=pass_book.id %}">Back to Book menu</a></li>
+</ul>
+
+<div class="content">
 <h1>Add List</h1>
 <form action="{%url 'accounting:func_add_list' book_id=pass_book.id %}" method="post">
 {% csrf_token %}
@@ -37,4 +43,5 @@
         <input type="radio" name="type_for" value="expenses">expenses</input><br>
 	<input type="submit" value="Add">
 </form>
+</div>
 </body>

@@ -1,34 +1,19 @@
 <head>
-	<style>
-		th, th.user{
-			border: 2px solid black;
-			background-color: #d66647;
-			border-collapse: collapse
-		}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'accounting/main_style.css' %}" />
+    <style>
 		th.user{
 			width: 65%;
 		}
-		table{
-			width:70%;
-			border: 2px solid black;
-			border-collapse: collapse;
-		}
-		td{
-			text-align:center;
-			border: 2px solid black;
-		}
-		tr:nth-child(odd){
-			background-color: #dad8f6;
-		}
-		tr:nth-child(even){
-			background-color: #f1edfb;
-		}
-
 	</style>
 </head>
 
-<body style="background-color:#47d666">
-<a href="{% url 'accounting:index' %}">Back to main manu</a>
+<body>
+<ul class="menu_bar">
+	<li class="menu_bar"><a href="{% url 'accounting:index' %}">Back to main manu</a></li>
+</ul>
+
+<div class="content">
 <center>
 {% if user_list %}
     <table>
@@ -38,7 +23,7 @@
 		</tr>
 	{% for user in user_list %}
         <tr>
-		    <td><a href="{% url 'accounting:user_book' pk=user.id %}">{{user.user_name}}</a></td>
+		    <td>{{user.user_name}}</td>
             <form action="{%url 'accounting:func_delete_user' user_id=user.id %}" method="post">
 				{% csrf_token %}
             <td><input type="submit" value="Delete This User"></td>
@@ -48,4 +33,5 @@
 {% endif %}
 </table>
 </center>
+</div>
 </body>

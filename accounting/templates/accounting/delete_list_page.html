@@ -1,33 +1,19 @@
 <head>
-	<style>
-		th, th.list{
-			border: 2px solid black;
-			background-color: #d66647;
-			border-collapse: collapse
-		}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'accounting/main_style.css' %}" />
+    <style>
 		th.list{
 			width: 65%;
-		}
-		table{
-			width:70%;
-			border: 2px solid black;
-			border-collapse: collapse;
-		}
-		td{
-			text-align:center;
-			border: 2px solid black;
-		}
-		tr:nth-child(odd){
-			background-color: #dad8f6;
-		}
-		tr:nth-child(even){
-			background-color: #f1edfb;
 		}
 	</style>
 </head>
 
-<body style="background-color:#47d666">
-<a href="{% url 'accounting:book_detail' pk=pass_book.id %}">Back to book menu</a>
+<body>
+<ul class="menu_bar">
+	<li class="menu_bar"><a href="{% url 'accounting:book_detail' pk=pass_book.id %}">Back to book menu</a></li>
+</ul>
+
+<div class="content">
 <center>
 {% if pass_book.list_set.all %}
     <table>
@@ -49,4 +35,5 @@
 {% endif %}
 </table>
 </center>
+</div>
 </body>

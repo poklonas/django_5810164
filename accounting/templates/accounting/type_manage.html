@@ -1,33 +1,19 @@
 <head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'accounting/main_style.css' %}" />
 	<style>
-		th, th.detail{
-			border: 2px solid black;
-			background-color: #d66647;
-			border-collapse: collapse
-		}
 		th.detail{
 			width: 70%;
-		}
-		table{
-			width:90%;
-			border: 2px solid black;
-			border-collapse: collapse;
-		}
-		td{
-			text-align:center;
-			border: 2px solid black;
-		}
-		tr:nth-child(odd){
-			background-color: #dad8f6;
-		}
-		tr:nth-child(even){
-			background-color: #f1edfb;
 		}
 	</style>
 </head>
 
-<body style="background-color:#47d666">
-<a href="{% url 'accounting:user_book' pk=user.id %}">Back to User book</a><br>
+<body>
+<ul class="menu_bar">
+	<li class="menu_bar"><a href="{% url 'accounting:user_book' pk=user.id %}">Back to User book</a></li>
+</ul>
+
+<div class="content">
 <h2> If you delete any type list which have type like that must be lost !! </h2>
 <br>
 <center>
@@ -65,4 +51,5 @@
 	{% endfor %}
 </table>
 </center>
+</div>
 </body>

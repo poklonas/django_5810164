@@ -1,9 +1,19 @@
-<body style="background-color:#47d666">
-<a href="{% url 'accounting:user_book' pk=user.id %}">Back to user menu</a>
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'accounting/main_style.css' %}" />
+</head>
+
+<body>
+<ul class="menu_bar">
+	<li class="menu_bar"><a href="{% url 'accounting:user_book' pk=user.id %}">Back to user menu</a></li>
+</ul>
+
+<div class="content">
 <h1>Add Pass Book</h1>
 <form action="{%url 'accounting:func_add_book' user_id=user.id %}" method="post">
 {% csrf_token %}
 	Pass_Book_name   : <input type="text" name="book_name" size="50" required></input>
 	<input type="submit" value="Add">
 </form>
+</div>
 </body>
