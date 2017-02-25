@@ -1,0 +1,79 @@
+body{
+    background-image: url("images/background.jpg"); 
+    /* cr. https://pixabay.com/en/fox-wildlife-animal-macro-closeup-1748640/ --> */
+    background-size:     cover;    
+    background-repeat:   no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    margin:0;
+}
+
+
+th{
+	border: 2px solid black;
+	background-color: #d66647;
+	border-collapse: collapse
+}
+
+table{
+	width:90%;
+	border: 2px solid black;
+	border-collapse: collapse;
+}
+
+td{
+	text-align:center;
+	border: 2px solid black;
+    text-align:center;
+}
+
+tr:nth-child(odd){
+	background-color: #dad8f6;
+}
+
+tr:nth-child(even){
+	background-color: #f1edfb;
+}
+
+ul.menu_bar{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #2A2400;
+}
+
+li.menu_bar{
+    float: left;
+
+}
+
+li.menu_bar a{
+    display: block;
+    color: #00F9FF;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li.menu_bar a:hover{
+    background-color: #A08032;
+}
+
+
+div.content{
+    background-color: rgba(255, 231, 87, 0.7);
+    border-radius: 20px;
+    border: 10px dotted;
+    border-color: #FB2E01;
+    padding: 15px;
+    margin: 5% 5%;
+    width: 87%;
+    height: 80%;
+    overflow-y: scroll;
+}
+

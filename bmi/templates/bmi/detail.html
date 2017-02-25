@@ -1,22 +1,15 @@
 <head>
-	<style>
-		table{
-			width:50%;
-			border: 1px solid black;
-			border-collapse: collapse;
-		}
-		tr:nth-child(odd){
-			background-color: MintCream;
-		}
-		tr:nth-child(even){
-			background-color: MistyRose;
-		}
-	</style>
+	{% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bmi/main_style.css' %}" />
 </head>
 
-<body style="background-color:SandyBrown">
-	<a href="{% url 'bmi:index' %}">Back to main manu</a><br>
-	<a href="{% url 'bmi:choice_manage' pk=question.id%}">Choice manage</a>
+<body>
+<ul class="menu_bar">
+	<li class="menu_bar"><a href="{% url 'bmi:index' %}">Back to main manu</a></li>
+	<li class="menu_bar"><a href="{% url 'bmi:choice_manage' pk=question.id%}">Choice manage</a></li>
+</ul>
+
+<div class="content">
 <center>
 <h1>{{ question.question_text }}</h1>
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
@@ -33,5 +26,6 @@
 	<br>
 	<input type="submit" value="Vote" /><br>
 </form>
-<center>
+</center>
+</div>
 </body>

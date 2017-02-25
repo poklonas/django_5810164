@@ -1,9 +1,19 @@
-<body style="background-color:SandyBrown">
-<a href="{% url 'bmi:index' %}">Back to main manu</a>
+<head>
+	{% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bmi/main_style.css' %}" />
+</head>
+
+<body>
+<ul class="menu_bar">
+	<li class="menu_bar"><a href="{% url 'bmi:index' %}">Back to main manu</a></li>
+</ul>
+
+<div class="content">
 <h1>Add new Question and new choice for this Question</h1>
 <form action="{%url 'bmi:add_question'%}" method="post">
 {% csrf_token %}
 	Question   : <input type="text" name="question_text" size="50" required></input>
 	<input type="submit" value="Add">
 </form>
+</div>
 </body>

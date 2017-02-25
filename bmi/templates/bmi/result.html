@@ -1,31 +1,15 @@
 <head>
-	<style>
-		table{
-			width:50%;
-			border: 1px solid black;
-			border-collapse: collapse;
-		}
-		tr:nth-child(odd){
-			background-color: MintCream;
-		}
-		tr:nth-child(even){
-			background-color: MistyRose;
-		}
-		th{
-			border: 1px solid black;
-			background-color: YellowGreen;
-			border-collapse: collapse
-		}
-		td{			
-			text-align: center;
-			border: 1px solid black;
-		}
-	</style>
+	{% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bmi/main_style.css' %}" />
 </head>
 
-<body style="background-color:SandyBrown">
-<a href="{% url 'bmi:index' %}">Back to main manu</a><br>
-<a href="{% url 'bmi:detail' question.id %}">Vote again</a>
+<body>
+<ul class="menu_bar">
+	<li class="menu_bar"><a href="{% url 'bmi:index' %}">Back to main manu</a></li>
+	<li class="menu_bar"><a href="{% url 'bmi:detail' question.id %}">Vote again</a></li>
+</ul>
+
+<div class="content">
 <center>
 <h1> Thank You for voting</h1>
 <h1>{{ question.question_text }}</h1>
@@ -39,5 +23,6 @@
 	</tr>
 {% endfor %}
 <table>
-<center>
+</center>
+</table>
 </body>
