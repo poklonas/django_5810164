@@ -174,10 +174,10 @@ def check_balance_user(user_id):
         book.save()
 
 def save_data(request, book_id):
-    try: # if have a date condition
-        date_input = request.POST.get('date')
-        all_list = List.objects.filter(date=date_input, pass_book=book_id)
-    except:
+    date_input = request.POST.get('date')
+    if date_input != None:
+    	all_list = List.objects.filter(date=date_input, pass_book=book_id)
+    else:
         all_list = List.objects.filter(pass_book=book_id)
     response = HttpResponse(content_type='text/csv') # set type for not return as html
     response['Content-Disposition'] = 'attachment; filename="all_list_data.csv"' # file name
