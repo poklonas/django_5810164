@@ -1,11 +1,15 @@
 import time
 import csv
+import os
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
-from .models import User, Pass_book, List, List_type
+from .models import User, Pass_book, List, List_type, Imported_csv
+from django.core.files.storage import FileSystemStorage
+from .forms import ImportCsvForm
+
 
 class IndexView(generic.ListView): #for show home page that show all user
     model = User
@@ -52,7 +56,7 @@ class TypeManage(generic.DetailView): # go to add or delete type page
 
 
 def add_user_page(request): # go to add user page
-	return render(request, 'accounting/add_user_page.html')
+    return render(request, 'accounting/add_user_page.html')
 
 def func_add_user(request): # function add user and return to main page
     text_name = request.POST.get('user_name')
@@ -182,7 +186,7 @@ def save_data(request, book_id):
     response = HttpResponse(content_type='text/csv') # set type for not return as html
     response['Content-Disposition'] = 'attachment; filename="all_list_data.csv"' # file name
     # start write #
-    field = ['Year', 'Month', 'Day', 'Detail', 'Income', 'Expenses'] # head
+    field = ['Year', 'Month', 'Day', 'Detail', 'Type', 'Income', 'Expenses'] # head
     writer = csv.DictWriter(response, fieldnames=field)
     writer.writeheader() # write head
     for a_list in all_list:
@@ -191,13 +195,64 @@ def save_data(request, book_id):
                              'Month' : a_list.get_month(),
                              'Day' : a_list.get_day(),
                              'Detail' : a_list.list_name,
+                             'Type' : a_list.list_type.type_name,
                              'Income' : a_list.value})
         else:
             writer.writerow({'Year' : a_list.get_year(),
                              'Month' : a_list.get_month(),
                              'Day' : a_list.get_day(),
                              'Detail' : a_list.list_name,
+                             'Type' : a_list.list_type.type_name,
                              'Expenses' : a_list.value})
     # stop write #
     return response
 
+def upload_csv_page(request, book_id):
+    form = ImportCsvForm()
+    return render(request, 'accounting/upload_csv_page.html', {'form': form, 'book_id': book_id})
+
+def upload_csv(request, book_id):
+    if request.method == 'POST':
+        form = ImportCsvForm(request.POST, request.FILES)
+        if form.is_valid():
+            csv_object = form.save()
+            update_from_csv(csv_object, book_id)
+            return HttpResponseRedirect(reverse('accounting:book_detail', args=[book_id]))
+    else:
+        form = ImportCsvForm()
+    return render(request, 'accounting:upload_csv_page', {'form': form})
+
+def update_from_csv(imported_csv, book_id):
+    path = imported_csv.get_csv_file()
+    book = Pass_book.objects.get(pk=book_id)
+    with open(path, 'r') as csvfile:
+        reader=csv.DictReader(csvfile)
+        for row in reader:
+            year = row['Year']
+            month = row['Month']
+            day = row['Day']
+            date = year + '-' + month + '-' + day
+            detail_in = row['Detail']
+            if (row['Income'] != ''):
+                value_in = row['Income']
+                type_for_in = 'income'
+            else:
+                value_in = row['Expenses']
+                type_for_in = 'expenses'
+            type_in = row['Type']
+            try:
+                list_type = List_type.objects.get(type_name=type_in, type_for=type_for_in)
+            except:
+                user = User.objects.get(pk=book.user.id) # get user object by use use_id
+                user.list_type_set.create(type_name=type_in,\
+                                          type_for=type_in)     # make new list_type
+                list_type = List_type.objects.get(type_name=type_in, type_for=type_for_in)
+            test= book.list_set.create( list_type=list_type,\
+                                  list_name=detail_in,\
+                                  detail='',\
+                                  value=value_in,\
+                                  date=date,\
+                                      )
+    check_balance_user(book.user.id)
+    print("Data Base has been Updated by Import CSV file")
+    

@@ -28,4 +28,6 @@ urlpatterns = [
     #special
     url(r'^(?P<book_id>[0-9]+)/list_in_date/$', views.ListInDate, name='list_in_date'),
     url(r'^(?P<book_id>[0-9]+)/download_data/$', views.save_data, name='save_data'),
+    url(r'^(?P<book_id>[0-9]+)/upload_csv_page/$', views.upload_csv_page, name='upload_csv_page'),
+    url(r'^(?P<book_id>[0-9]+)/func_upload_csv/$', views.upload_csv, name='func_upload_csv'),
 ]

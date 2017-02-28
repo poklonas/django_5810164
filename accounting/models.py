@@ -3,6 +3,7 @@ import datetime
 from django.db import models
 from django.utils import timezone
 
+
 class User(models.Model):
     user_name = models.CharField(max_length=60)
     founded = models.DateTimeField('date founded')
@@ -51,6 +52,9 @@ class List(models.Model):
     def __str__(self):
         return self.list_name
 
+    def set_value(self, val):
+        self.value = val
+
     def get_date(self):
         if(self.date.month >9):
             month = str(self.date.month)
@@ -74,3 +78,14 @@ class List(models.Model):
         return self.date.day
 
 
+class Imported_csv(models.Model):
+    description = models.CharField(max_length=255, blank=True)
+    csv_file = models.FileField(upload_to='./accounting/media/imported_csv/')
+    pass_book = models.ForeignKey(Pass_book, on_delete=models.CASCADE, default='1')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.description
+
+    def get_csv_file(self):
+        return str(self.csv_file)
