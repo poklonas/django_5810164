@@ -1,11 +1,17 @@
 <head>
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'accounting/main_style.css' %}" />
+    <link id="pagestyle" rel="stylesheet" type="text/css" href="{% static 'accounting/theme1/main_style.css' %}" />
 	<style>
 		th.user{
 			width: 65%;
         }
 	</style>
+    <script>
+    function swapStyleSheet(){
+        document.getElementById('pagestyle').setAttribute('href', "{% static 'accounting/theme2/main_style.css' %}");
+    }
+    </script>
+
 </head>
 
 <body>
@@ -35,5 +41,6 @@
 {% endif %}
 </table>
 </center>
+<button onclick="swapStyleSheet()">change theme</button>
 </div>
 </body>

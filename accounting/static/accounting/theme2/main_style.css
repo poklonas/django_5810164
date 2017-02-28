@@ -1,6 +1,6 @@
 body{
     background-image: url("images/background.jpg"); 
-    /* cr. https://pixabay.com/en/animal-squirrel-sciurus-bird-meal-927904/ --> */
+    /* cr. https://pixabay.com/en/fox-wildlife-animal-macro-closeup-1748640/ --> */
     background-size:     cover;    
     background-repeat:   no-repeat;
     background-position: center center;
@@ -8,18 +8,6 @@ body{
     margin:0;
 }
 
-a.box:link, a.box:visited{
-    background-color: #cfe486;
-    color: black;
-    padding: 14px 25px;
-    text-align: center;
-   	text-decoration: none;
-   	display: inline-block;
-}
-
-a.box:hover, a.box:active{
-    background-color: #c7df71;
-}
 
 th{
 	border: 2px solid black;
@@ -56,7 +44,7 @@ ul.menu_bar{
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #071B00;
+    background-color: #2A2400;
 }
 
 li.menu_bar{
@@ -66,30 +54,26 @@ li.menu_bar{
 
 li.menu_bar a{
     display: block;
-    color: #FFB400;
+    color: #00F9FF;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
 
 li.menu_bar a:hover{
-    background-color: #515F4C;
+    background-color: #A08032;
 }
 
 
 div.content{
-    background-color: rgba(164, 204, 150, 0.8);
+    background-color: rgba(255, 231, 87, 0.7);
     border-radius: 20px;
     border: 10px dotted;
-    border-color: #2C4C44;
+    border-color: #FB2E01;
     padding: 15px;
     margin: 5% 5%;
     width: 87%;
     height: 80%;
+    overflow-y: scroll;
 }
 
-iframe.content{
-    border:none;
-    width: 100%;
-    height: 65%;
-}
