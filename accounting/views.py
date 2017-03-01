@@ -1,6 +1,5 @@
 import time
 import csv
-import os
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -245,7 +244,7 @@ def update_from_csv(imported_csv, book_id):
             except:
                 user = User.objects.get(pk=book.user.id) # get user object by use use_id
                 user.list_type_set.create(type_name=type_in,\
-                                          type_for=type_in)     # make new list_type
+                                          type_for=type_for_in)     # make new list_type
                 list_type = List_type.objects.get(type_name=type_in, type_for=type_for_in)
             test= book.list_set.create( list_type=list_type,\
                                   list_name=detail_in,\

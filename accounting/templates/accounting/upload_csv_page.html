@@ -70,7 +70,7 @@
   <form method="post" action="{% url 'accounting:func_upload_csv' book_id %}" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Upload</button>
+    <button type="submit">Add All</button>
   </form>
 </div>
 </body>
