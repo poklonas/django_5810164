@@ -1,5 +1,6 @@
 import time
 import csv
+import datetime
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -227,10 +228,10 @@ def update_from_csv(imported_csv, book_id):
     with open(path, 'r') as csvfile:
         reader=csv.DictReader(csvfile)
         for row in reader:
-            year = row['Year']
-            month = row['Month']
-            day = row['Day']
-            date = year + '-' + month + '-' + day
+            year = int(row['Year'])
+            month = int(row['Month'])
+            day = int(row['Day'])
+            date_in = datetime.date(year, month, day).isoformat() # isoformat is YYYY-MM-DD
             detail_in = row['Detail']
             if (row['Income'] != ''):
                 value_in = row['Income']
@@ -250,8 +251,7 @@ def update_from_csv(imported_csv, book_id):
                                   list_name=detail_in,\
                                   detail='',\
                                   value=value_in,\
-                                  date=date,\
+                                  date=date_in,\
                                       )
     check_balance_user(book.user.id)
-    print("Data Base has been Updated by Import CSV file")
     
