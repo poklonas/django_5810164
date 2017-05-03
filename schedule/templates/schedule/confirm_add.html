@@ -1,8 +1,9 @@
 <html>
 <head>
+    {% load static %}
     <title>confirm_add</title>
-    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/base.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'schedule/base.css' %}">
 </head>
 
 <body>
@@ -43,7 +44,7 @@
             	Spend Time :<input id="how_many_hour" type="number"  name="how_many_hour"
             	value={{how_many_hour}} ><br>
             </div>
-    			<input type="submit" class="btn-primary" value="Yes" formaction="{% url 'schedule:add_new_activity' user_id=user.pk %}" ></input> 
+    			<input type="submit" class="btn-primary" value="Yes" formaction="{% url 'schedule:add_new_activity' user_id=user.pk %}" ></input>
     			<input type="submit" class="btn-danger" value="No" formaction="{% url 'schedule:user_page' user_id=user.pk %}" ></input>
     	</form>
 </div>
