@@ -1,0 +1,191 @@
+<html>
+<head>
+    <title>user_page</title>
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/base.css" rel="stylesheet">
+</head>
+
+<body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="{% url 'schedule:home_page' %}">Back to main menu</a>
+      </div>
+    </ul>
+  </div>
+</nav>
+
+<center>
+<div class="container">
+    <h1>Hi {{user.name}}</h1>
+    {% if error_messege %}
+      <div class="alert alert-warning">
+            <strong>Error!  :   {{error_messege}} </strong>   
+      </div>
+    {% endif %}
+ </div>
+    <form action="{%url 'schedule:confirm_delete' user_id=user.pk %}" method="POST" class="form-inline">
+        {% csrf_token %}
+        <input class="form-control" id="detail" type="text" name="detail" placeholder="detail" required>
+        <input class="form-control" id="start_time" type="number"  name="start_time" min="0" max="23" step="1"  placeholder="start_time" required>
+        <input class="form-control" id="how_many_hour" type="number"  name="how_many_hour" min="1" max="24" step="1"
+        placeholder="how_many_hour" required>
+        <select class="form-control" id="day_selecter" name="day_selecter">
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
+        </select>
+        <input class="btn btn-success" type="submit" value="New">
+    </form>
+
+
+
+    <table id='table_time'>
+        <!-- time -->
+        <tr id ='time'>
+            <th id="main_table" class='head'>Time [hr] /Day</th>
+            <th id="time">00</th>
+            <th id="time">01</th>
+            <th id="time">02</th>
+            <th id="time">03</th>
+            <th id="time">04</th>
+            <th id="time">05</th>
+            <th id="time">06</th>
+            <th id="time">07</th>
+            <th id="time">08</th>
+            <th id="time">09</th>
+            <th id="time">10</th>
+            <th id="time">11</th>
+            <th id="time">12</th>
+            <th id="time">13</th>
+            <th id="time">14</th>
+            <th id="time">15</th>
+            <th id="time">16</th>
+            <th id="time">17</th>
+            <th id="time">18</th>
+            <th id="time">19</th>
+            <th id="time">20</th>
+            <th id="time">21</th>
+            <th id="time">22</th>
+            <th id="time">23</th>
+        </tr>
+        <!-- day -->
+        <tr>
+            <th id="day">Monday</th>
+                {% for activity in user.activity_set.all %}
+                    {% if activity.day == 'Monday' %}
+                           {% if activity.connected %}
+                           {% else %}
+                                {% if activity.time_left > 0%}
+                                    <td id="activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
+                                {% else %}
+                                    <td id="non_activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
+                                {% endif %}
+                           {% endif %}
+                    {% endif%}
+                {% endfor %}
+        </tr>
+
+        <tr>
+            <th id="day">Tuesday</th>
+               {% for activity in user.activity_set.all %}
+                    {% if activity.day == 'Tuesday' %}
+                           {% if activity.connected %}
+                           {% else %}
+                                {% if activity.time_left > 0%}
+                                    <td id="activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
+                                {% else %}
+                                    <td id="non_activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
+                                {% endif %}
+                           {% endif %}
+                    {% endif%}
+                {% endfor %}
+        </tr>
+
+        <tr>
+            <th id="day">Wednesday</th>
+               {% for activity in user.activity_set.all %}
+                    {% if activity.day == 'Wednesday' %}
+                           {% if activity.connected %}
+                           {% else %}
+                                {% if activity.time_left > 0%}
+                                    <td id="activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
+                                {% else %}
+                                    <td id="non_activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
+                                {% endif %}
+                           {% endif %}
+                    {% endif%}
+                {% endfor %}
+        </tr>
+
+        <tr>
+            <th id="day">Thursday</th>
+               {% for activity in user.activity_set.all %}
+                    {% if activity.day == 'Thursday' %}
+                           {% if activity.connected %}
+                           {% else %}
+                                {% if activity.time_left > 0%}
+                                    <td id="activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
+                                {% else %}
+                                    <td id="non_activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
+                                {% endif %}
+                           {% endif %}
+                    {% endif%}
+                {% endfor %}
+        </tr>
+
+        <tr>
+            <th id="day">Friday</th>
+              {% for activity in user.activity_set.all %}
+                    {% if activity.day == 'Friday' %}
+                           {% if activity.connected %}
+                           {% else %}
+                                {% if activity.time_left > 0%}
+                                    <td id="activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
+                                {% else %}
+                                    <td id="non_activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
+                                {% endif %}
+                           {% endif %}
+                    {% endif%}
+                {% endfor %}
+        </tr>
+
+        <tr>
+            <th id="day">Saturday</th>
+              {% for activity in user.activity_set.all %}
+                    {% if activity.day == 'Saturday' %}
+                           {% if activity.connected %}
+                           {% else %}
+                                {% if activity.time_left > 0%}
+                                    <td id="activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
+                                {% else %}
+                                    <td id="non_activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
+                                {% endif %}
+                           {% endif %}
+                    {% endif%}
+                {% endfor %}
+        </tr>
+
+        <tr>
+            <th id="day">Sunday</th>
+              {% for activity in user.activity_set.all %}
+                    {% if activity.day == 'Sunday' %}
+                           {% if activity.connected %}
+                           {% else %}
+                                {% if activity.time_left > 0%}
+                                    <td id="activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
+                                {% else %}
+                                    <td id="non_activity" colspan={{ activity.time_left }}>{{ activity.detail }}</td>
+                                {% endif %}
+                           {% endif %}
+                    {% endif%}
+                {% endfor %}
+        </tr>
+    </table>
+</center>
+</body>
+</html>

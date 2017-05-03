@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'homepage.apps.HomepageConfig',
 	'accounting.apps.AccountingConfig',
     'bmi.apps.BmiConfig',
+    'schedule.apps.ScheduleConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

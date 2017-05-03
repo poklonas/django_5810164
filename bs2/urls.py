@@ -20,5 +20,6 @@ urlpatterns = [
     url(r'', include('homepage.urls')),
 	url(r'^accounting/', include('accounting.urls')),
     url(r'^bmi/', include('bmi.urls')),
+	url(r'^schedule/', include('schedule.urls')),
     url(r'^admin/', admin.site.urls),
 ]
