@@ -10,11 +10,12 @@ table, th, td {
       border: 1px solid black;
       border-collapse: collapse;
       text-align: center;
-} 
+}
 td{
       width:3%;
       height: 12%;
-      overflow:scroll;
+      overflow:hidden;
+
 }
 th.head{
       width :5%;
@@ -30,11 +31,11 @@ th.head{
 }
 
 #main_table{
-      background-color: MediumSpringGreen     ;  
+      background-color: MediumSpringGreen     ;
 }
 
 #activity{
-      background-color: PaleTurquoise      ;  
+      background-color: PaleTurquoise      ;
 }
 
 #non_activity{

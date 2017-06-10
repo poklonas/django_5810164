@@ -3,10 +3,11 @@ from schedule.models import User, Activity
 from django.urls import reverse
 
 
-''' if this page has value from form it will creat a user object 
+''' if this page has value from form it will creat a user object
 	and redirect to it self '''
 def home_page(request):
-    if request.method == 'POST': 
+    user_list = User.objects.all()
+    if request.method == 'POST':
         user = User.objects.create(name=request.POST['user_name'])
         user.save()
         generate_activity_for_first_time_of_user('Monday', user.pk)
@@ -17,7 +18,6 @@ def home_page(request):
         generate_activity_for_first_time_of_user('Saturday', user.pk)
         generate_activity_for_first_time_of_user('Sunday', user.pk)
         return redirect(reverse('schedule:home_page'))
-    user_list = User.objects.all()
     return render(request, 'schedule/homepage.html', {'user_list': user_list})
 
 def generate_activity_for_first_time_of_user(day, user_id):
@@ -38,8 +38,6 @@ def add_new_activity(request, user_id):
     max_time = start_time + how_many_hour
     day_in = request.POST['day_selecter']
     detail_in = request.POST['detail']
-    if(max_time > 24):
-        return render(request, 'schedule/userpage.html', {'user': user, 'error_messege':"Your select time after 23.00 It cant , please Try another time"})
     for count_time in range(start_time, max_time):
         activity_filter = Activity.objects.get(user=user,
                                                time=count_time,
@@ -60,7 +58,7 @@ def add_new_activity(request, user_id):
         activity_filter.save()
     return redirect(reverse('schedule:user_page', args=[user_id],))
 
-def reset_same_time_activity_reverse(user_id, time, day): #count-down to reset 
+def reset_same_time_activity_reverse(user_id, time, day): #count-down to reset
     user = User.objects.get(pk=user_id)
     extend_activity = Activity.objects.get(user=user, time=time, day=day)
     extend_activity.setDetail("")
@@ -78,7 +76,7 @@ def reset_same_time_activity_forward(user_id, time, day, time_left): # count-up 
     extend_activity = Activity.objects.get(user=user, time=time, day=day)
     extend_activity.setDetail("")
     extend_activity.set_time_left(0)
-    if(time_left != 0): # first must be False 
+    if(time_left != 0): # first must be False
         extend_activity.set_connected(False)
         extend_activity.save()
         if(time < 23):
@@ -112,10 +110,15 @@ def confirm_delete(request, user_id):
     how_many_hour = int(request.POST['how_many_hour'])
     day_in = request.POST['day_selecter']
     detail_in = request.POST['detail']
+    max_time = start_time + how_many_hour
+    if(max_time > 24):
+        return render(request, 'schedule/userpage.html',
+                               {'user': user,
+                                'error_messege':"Your select time after 23.00 It cant , please Try another time"})
     collide = check_has_same_time(user_id, start_time, day_in, how_many_hour)
     if(collide == []):
         return add_new_activity(request, user_id)
-    return render(request, 'schedule/confirm_add.html',{'user': user, 
+    return render(request, 'schedule/confirm_add.html',{'user': user,
                                                         'collide_time':collide,
                                                         'day':day_in,
                                                         'start':start_time,
