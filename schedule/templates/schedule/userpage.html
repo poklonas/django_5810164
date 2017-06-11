@@ -1,16 +1,15 @@
 <html>
 <head>
-    {% load static %}
     <title>user_page</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="{% static 'schedule/base.css' %}">
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/base.css" rel="stylesheet">
 </head>
 
 <body>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="{% url 'schedule:home_page' %}">Back to main menu</a>
+      <a class="navbar-brand" href="{% url 'schedule:logout' %}">LOGOUT</a>
       </div>
     </ul>
   </div>
@@ -21,7 +20,7 @@
     <h1>Hi {{user.name}}</h1>
     {% if error_messege %}
       <div class="alert alert-warning">
-            <strong>Error!  :   {{error_messege}} </strong>
+            <strong>Error!  :   {{error_messege}} </strong>   
       </div>
     {% endif %}
  </div>
